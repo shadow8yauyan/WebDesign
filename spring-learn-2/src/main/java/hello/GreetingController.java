@@ -51,11 +51,21 @@ public class GreetingController {
     public static String postValue(HttpServletRequest request) throws IOException {
         String str= JSONHandling.postReceived(request);
         return "Receive: " + str;
+
     }
 
     @RequestMapping(value = "/postJson", method = RequestMethod.POST)
     public static ResponseEntity<String> postJson(HttpServletRequest request) throws IOException {
         String str= JSONHandling.postReceived(request);
+        JSONObject inputJson = JSONHandling.getValue(str);
+
+        //get Array value = car => [{"color":"Blue","vin":"1234","miles":100},{"color":"Red","vin":"125","miles":400}]
+        //System.out.println(inputJson.getJSONArray("car"));
+        //get object value[1] => {"color":"Red","vin":"125","miles":400}
+        //System.out.println(inputJson.getJSONArray("car").getJSONObject(1));
+        //get Json value[1] => Red
+        //System.out.println(inputJson.getJSONArray("car").getJSONObject(1).get("color"));
+        //return inputJson.getJSONArray("car").getJSONObject(1).get("color").toString();
 
         // 400
         //return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
@@ -64,3 +74,19 @@ public class GreetingController {
     }
 
 }
+
+/*Json testing file
+{
+  "car":[
+    {
+      "color":"Blue",
+      "miles":100,
+      "vin":"1234"
+    },
+    {
+      "color":"Red",
+      "miles":400,
+      "vin":"125"
+    }
+  ]
+}*/

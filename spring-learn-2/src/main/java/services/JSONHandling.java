@@ -20,9 +20,17 @@ public class JSONHandling {
         return jb.toString();
     }
 
-    public static String getValue(String jsonstr){
-
-        return "";
+    public static JSONObject getValue(String jsonstr){
+        JSONObject jsonObj;
+        try{
+            jsonObj = new JSONObject(jsonstr);
+        }catch (Exception e) {
+            //System.out.println("INCORRECT JSON FILE FORMAT");
+            jsonObj = new JSONObject("{\"errorCde\":\"INCORRECT JSON FILE FORMAT\"}");
+        }
+        return jsonObj;
     }
 }
+
+
 
